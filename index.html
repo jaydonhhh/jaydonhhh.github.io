@@ -7,7 +7,32 @@
     <title>罗非鱼啊，我已归来</title>
 </head>
 <body>
-    <h3>鱼鱼鱼</h3>
-    <a herf="https://8.138.13.219/inspect">鱼鱼鱼鱼</a>
-</body>    
+    <h1>Upload File</h1>
+    <input type="file" id="fileInput">
+    <button id="uploadButton">Upload</button>
+
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const partName = 'examplePartName'; // Replace with your part name
+            
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('part_name', partName);
+
+                fetch('https://8.138.13.219/inspect', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch(error => console.error('Error:', error));
+            } else {
+                console.error('No file selected');
+            }
+        });
+    </script>
+</body>
 </html>
